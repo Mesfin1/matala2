@@ -50,7 +50,7 @@ def write_output(points):
     FILE.write(template_after)
   
 def main():
-    argv= "C:/Users/Mesfin/Desktop/חשוב/שנה שנייה/מבנה תוכנה/myNMEA.txt" 
+    argv= 'Nmea_Files/Bus.txt' 
     write_output(conToKml(fileinput.input(argv)))
 
 if __name__ == "__main__":
