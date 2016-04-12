@@ -1,45 +1,60 @@
- 
-def readNMEAFile(fileName):
-    total_line =0
-    total_gga=0
-    xlist=[]
-    for line in open(fileName,'r'):
-        try:
-            total_line+=1
-            if('$GPGGA' not in line ):
-                continue
-            total_gga+=1
-            arr=line.split(",")
-            y=int(arr[2][:2])+float(arr[2][2:])/60.
-            x=int(arr[4][:3])+float(arr[4][3:])/60.
 
-            xlist.extend([x,y])
-             
-        except:
-            print("Error")
+import sys
+import fileinput
+from sys import stdout
+from collections.__main__ import Point
 
-    return xlist
-def gga(da):
-     ret = dict()
-     if(da[0]=='$GPGGA' and len(da)==15):
-         ret['utc_time']= da[1][0:2]+':'+da[1][2:4]+':'+da[1][4:]  
-         ret['Latitude']=int(da[2][0:2])+(float(da[2][2:])/60)
-         ret['Longitude']=da[2][0:2]+' '+da[2][2:]
-         ret['ns']=da[3]
-         ret['lon_deg']=int(da[4][0:3])+(float(da[4][3:])/60)
-         ret['lon_dm']=da[4][0:3]+' '+da[4][3:]
-         ret['ew']=da[5]
-         ret['pfi']=da[6]
-         ret['sat_used']=da[7]
-         ret['hdop']=da[8]
-         ret['msl_alt']=da[9]
-         ret['alt_unit']=da[10]
-         ret['geoid_sep']=da[11]
-         ret['sep_unit']=da[12]
-         ret['age_diff_cor']=da[13]
-         ret['diff_ref_sta_id']=da[14][0:4]
-         ret['csum']=da[14][4:]
-     return ret;
+template_before = '''<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.1">
+<Document>
+  <name>Track Log</name>
+  <description>Route</description>
+  <Style id="roadStyle">
+    <LineStyle>
+      <color>ff4444ff</color>
+      <width>3</width>
+    </LineStyle>
+  </Style>
+  <Placemark>
+    <name>Route</name>
+    <styleUrl>#roadStyle</styleUrl>
+    <MultiGeometry>\n'''
+
+template_after = '''    </MultiGeometry>
+  </Placemark>
+</Document>
+</kml>\n'''
+
+def findCoordinates(v):
+    t = v.split('.')
+    var=int(t[0][:-2]) + (int(t[0][-2:]) + int(t[1]) / (10.0 ** len(t[1]))) / 60
  
-fr=gga("C:/Users/Mesfin/Desktop/חשוב/שנה שנייה/מבנה תוכנה/nmea.txt")
-print(fr)
+    return var
+
+def conToKml(input):
+    result = []
+    for s in input:
+        t = s.split(',')
+        if (t[0] != '$GPGGA') or (t[2] == '') or (t[4] == '') or (t[9] == ''):
+            continue
+        result.append('%.7f,%.7f,%s' % (findCoordinates(t[4]), findCoordinates(t[2]), t[9]))
+        print(result)
+    return result
+
+def write_output(points):
+    
+    file = 'C:/Users/Mesfin/Desktop/חשוב/שנה שנייה/מבנה תוכנה/nmea' + '.kml'
+    FILE = open(file, 'w')
+    FILE.write(template_before)
+    FILE.write('      <LineString><coordinates>%s</coordinates></LineString>\n' % ' '.join(points))
+    FILE.write(template_after)
+  
+def main():
+    argv= "C:/Users/Mesfin/Desktop/חשוב/שנה שנייה/מבנה תוכנה/myNMEA.txt" 
+    write_output(conToKml(fileinput.input(argv)))
+
+if __name__ == "__main__":
+    main()
+    
+    
+    
