@@ -43,14 +43,14 @@ def conToKml(input):
 
 def write_output(points):
     
-    file = 'C:/Users/Mesfin/Desktop/חשוב/שנה שנייה/מבנה תוכנה/nmea' + '.kml'
+    file = 'Kml_Files/outKml' + '.kml'
     FILE = open(file, 'w')
     FILE.write(template_before)
-    FILE.write('      <LineString><coordinates>%s</coordinates></LineString>\n' % ' '.join(points))
+    FILE.write('      <LineString><coordinates>%s</coordinates> </LineString>\n' % ' '.join(points))
     FILE.write(template_after)
   
 def main():
-    argv= 'Nmea_Files/Bus.txt' 
+    argv= 'Nmea_Files/walking.txt' 
     write_output(conToKml(fileinput.input(argv)))
 
 if __name__ == "__main__":

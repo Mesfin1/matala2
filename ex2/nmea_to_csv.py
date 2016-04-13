@@ -5,8 +5,8 @@ import math
 
 
 # adapt this to your file
-INPUT_FILENAME = 'C:/res/myNMEA.txt'
-OUTPUT_FILENAME = 'C:/res/out.csv'
+INPUT_FILENAME = 'Nmea_Files/running.txt'
+OUTPUT_FILENAME = 'C:/Users/Mesfin/Desktop/out.csv'
 
 # open the input file in read mode
 with open(INPUT_FILENAME, 'r') as input_file:
@@ -51,7 +51,7 @@ with open(INPUT_FILENAME, 'r') as input_file:
                 date_and_time = datetime.strptime(date + ' ' + time, '%d%m%y %H%M%S.%f')
 
                 # convert the Python datetime into your preferred string format, see http://www.tutorialspoint.com/python/time_strftime.htm for futher possibilities
-                date_and_time = date_and_time.strftime('%y-%m-%d %H:%M:%S:%f')[:-3] # [:-3] cuts off the last three characters (trailing zeros from the fractional seconds)
+                date_and_time = date_and_time.strftime('%y-%m-%d %H:%M:%S.%f')[:-3] # [:-3] cuts off the last three characters (trailing zeros from the fractional seconds)
 
                 # lat and lon values in the $GPRMC nmea sentences come in an rather uncommon format. for convenience, convert them into the commonly used decimal degree format which most applications can read.
                 # the "high level" formula for conversion is: DDMM.MMMMM => DD + (YY.ZZZZ / 60), multiplicated with (-1) if direction is either South or West
@@ -69,8 +69,11 @@ with open(INPUT_FILENAME, 'r') as input_file:
                 # speed is given in knots, you'll probably rather want it in km/h and rounded to full integer values.
                 # speed has to be converted from string to float first in order to do calculations with it.
                 # conversion to int is to get rid of the tailing ".0".
-                speed = int(round(float(speed) *  (1.852), 0))
-                
+                speed = int(round(float(speed) * 1.852, 0))
 
                 # write the calculated/formatted values of the row that we just read into the csv file
                 writer.writerow([date_and_time, lat, lon, speed])
+                
+                
+INPUT_FILENAME.close()   
+OUTPUT_FILENAME.close() 
