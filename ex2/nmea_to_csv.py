@@ -5,8 +5,8 @@ import math
 
 
 # adapt this to your file
-INPUT_FILENAME = 'Nmea_Files/running.txt'
-OUTPUT_FILENAME = 'C:/Users/Mesfin/Desktop/out.csv'
+INPUT_FILENAME = 'C:/Users/tomer-lap/workspace/m2/test/g.txt'
+OUTPUT_FILENAME = 'C:/Users/tomer-lap/workspace/m2/test/oiut.csv'
 
 # open the input file in read mode
 with open(INPUT_FILENAME, 'r') as input_file:
@@ -27,7 +27,7 @@ with open(INPUT_FILENAME, 'r') as input_file:
         for row in reader:
 
             # skip all lines that do not start with $GPRMC
-            if not row[0].startswith('$GPRMC'):
+            if not (row[0].startswith('$GNRMC')) and not (row[0].startswith('$GPRMC')) :
                 continue
 
             else:
@@ -74,6 +74,3 @@ with open(INPUT_FILENAME, 'r') as input_file:
                 # write the calculated/formatted values of the row that we just read into the csv file
                 writer.writerow([date_and_time, lat, lon, speed])
                 
-                
-INPUT_FILENAME.close()   
-OUTPUT_FILENAME.close() 
