@@ -43,7 +43,7 @@ def conToKml(input):
 
 def write_output(points):
     
-    file = 'Kml_Files/outKml' + '.kml'
+    file = 'Kml_Files/outKm' + '.kml'
     FILE = open(file, 'w')
     FILE.write(template_before)
     FILE.write('      <LineString><coordinates>%s</coordinates> </LineString>\n' % ' '.join(points))
