@@ -6,7 +6,7 @@ import math
 
 # adapt this to your file
 INPUT_FILENAME = 'Nmea_Files/AttoPilot Flight  2008-12-02.txt'
-OUTPUT_FILENAME = 'Csv_Files/outAttoPilot.csv'
+OUTPUT_FILENAME = 'Csv_Files/'+INPUT_FILENAME[11:-4]+'.csv'
 
 # open the input file in read mode
 with open(INPUT_FILENAME, 'r') as input_file:
