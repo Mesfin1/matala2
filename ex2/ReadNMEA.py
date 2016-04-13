@@ -35,7 +35,7 @@ def conToKml(input):
     result = []
     for s in input:
         t = s.split(',')
-        if (t[0] != '$GPGGA') or (t[2] == '') or (t[4] == '') or (t[9] == ''):
+        if ((t[0] != '$GPGGA')and(t[0] != '$GNGGA')) or (t[2] == '') or (t[4] == '') or (t[9] == ''):
             continue
         result.append('%.7f,%.7f,%s' % (findCoordinates(t[4]), findCoordinates(t[2]), t[9]))
         print(result)
@@ -43,14 +43,14 @@ def conToKml(input):
 
 def write_output(points):
     
-    file = 'Kml_Files/outKm' + '.kml'
+    file = 'C:/Users/tomer-lap/workspace/m2/test/kmlf' + '.kml'
     FILE = open(file, 'w')
     FILE.write(template_before)
     FILE.write('      <LineString><coordinates>%s</coordinates> </LineString>\n' % ' '.join(points))
     FILE.write(template_after)
   
 def main():
-    argv= 'Nmea_Files/walking.txt' 
+    argv= 'C:/Users/tomer-lap/workspace/m2/test/g.txt' 
     write_output(conToKml(fileinput.input(argv)))
 
 if __name__ == "__main__":
