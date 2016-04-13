@@ -5,8 +5,8 @@ import math
 
 
 # adapt this to your file
-INPUT_FILENAME = 'C:/Users/tomer-lap/workspace/m2/test/g.txt'
-OUTPUT_FILENAME = 'C:/Users/tomer-lap/workspace/m2/test/oiut.csv'
+INPUT_FILENAME = 'Nmea_Files/walking.txt'
+OUTPUT_FILENAME = 'Csv_Files/out.csv'
 
 # open the input file in read mode
 with open(INPUT_FILENAME, 'r') as input_file:
