@@ -43,14 +43,14 @@ def conToKml(input):
 
 def write_output(points):
     
-    file = 'Kml_Files/outKml' + '.kml'
+    file = 'Kml_Files/AttoPilot' + '.kml'
     FILE = open(file, 'w')
     FILE.write(template_before)
     FILE.write('      <LineString><coordinates>%s</coordinates> </LineString>\n' % ' '.join(points))
     FILE.write(template_after)
   
 def main():
-    argv= 'Nmea_Files/Walking.txt' 
+    argv= 'Nmea_Files/AttoPilot Flight  2008-12-02.txt' 
     write_output(conToKml(fileinput.input(argv)))
 
 if __name__ == "__main__":

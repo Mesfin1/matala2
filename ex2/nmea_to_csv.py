@@ -5,8 +5,8 @@ import math
 
 
 # adapt this to your file
-INPUT_FILENAME = 'Nmea_Files/walking.txt'
-OUTPUT_FILENAME = 'Csv_Files/out.csv'
+INPUT_FILENAME = 'Nmea_Files/AttoPilot Flight  2008-12-02.txt'
+OUTPUT_FILENAME = 'Csv_Files/outAttoPilot.csv'
 
 # open the input file in read mode
 with open(INPUT_FILENAME, 'r') as input_file:
