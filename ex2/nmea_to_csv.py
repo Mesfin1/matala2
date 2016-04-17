@@ -5,7 +5,7 @@ import math
 
 
 # adapt this to your file
-INPUT_FILENAME = 'Nmea_Files/AttoPilot_Flight_2008-12-02.txt'
+INPUT_FILENAME = 'Nmea_Files/nmeaFromWiki.txt'
 OUTPUT_FILENAME = 'Csv_Files/'+INPUT_FILENAME[11:-4]+'.csv'
 def  nmeaToCsv():
 # open the input file in read mode
@@ -75,9 +75,10 @@ def  nmeaToCsv():
                     writer.writerow([date_and_time, lat, lon, speed])
                     
         output_file.close()
-    input_file.close()               
-def main():
-  nmeaToCsv()
-  print('done')
-if __name__ == "__main__":
-    main()
+    input_file.close() 
+                  
+#def main():
+ # nmeaToCsv()
+ # print('done')
+#if __name__ == "__main__":
+    #main()
