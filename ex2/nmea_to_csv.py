@@ -5,11 +5,11 @@ import math
 
 
 # adapt this to your file
-INPUT_FILENAME = 'Nmea_Files/nmeaFromWiki.txt'
+INPUT_FILENAME = 'Nmea_Files/Iphone_nmea.txt'
 OUTPUT_FILENAME = 'Csv_Files/'+INPUT_FILENAME[11:-4]+'.csv'
-def  nmeaToCsv():
+
 # open the input file in read mode
-    with open(INPUT_FILENAME, 'r') as input_file:
+with open(INPUT_FILENAME, 'r') as input_file:
     
         # open the output file in write mode
         with open(OUTPUT_FILENAME, 'w') as output_file:
@@ -35,6 +35,7 @@ def  nmeaToCsv():
                     # for each row, fetch the values from the row's columns
                     # columns that are not used contain technical GPS stuff that you are probably not interested in
                     time = row[1]
+                    print(time + "aa")
                     warning = row[2]
                     lat = row[3]
                     lat_direction = row[4]
@@ -42,6 +43,7 @@ def  nmeaToCsv():
                     lon_direction = row[6]
                     speed = row[7]
                     date =  row[9]
+                    print(date)
     
                     # if the "warning" value is "V" (void), you may want to skip it since this is an indicator for an incomplete data row)
                     if warning == 'V':
@@ -74,11 +76,12 @@ def  nmeaToCsv():
                     # write the calculated/formatted values of the row that we just read into the csv file
                     writer.writerow([date_and_time, lat, lon, speed])
                     
-        output_file.close()
-    input_file.close() 
+   
                   
 #def main():
  # nmeaToCsv()
  # print('done')
 #if __name__ == "__main__":
     #main()
+
+    
