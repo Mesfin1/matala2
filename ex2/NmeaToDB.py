@@ -3,7 +3,9 @@ import csv
 import math
 import pymysql
 from datetime import datetime
-INPUT_FILENAME = "Nmea_Files/AttoPilot_Flight.txt"
+INPUT_FILENAME = "Nmea_Files/nmeaToKaravan.txt"
+OUTPUT_FILENAME = 'Csv_Files/'+INPUT_FILENAME[11:-4]+'.csv'
+
 with open(INPUT_FILENAME, 'r') as input_file:
     reader = csv.reader(input_file)
     conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='Mes307Fin', db='ex2')
@@ -17,7 +19,7 @@ with open(INPUT_FILENAME, 'r') as input_file:
     # create a csv reader object from the input file (nmea files are basically csv)
     
     c.execute('''create table nmea
-             (date text,time text,speed float, latitude text, longitude text)''')
+             (date DATE,time TIME,speed float, latitude text, longitude text)''')
     # create a csv reader object from the input file (nmea files are basically csv)
    
     for row in reader:
@@ -31,15 +33,12 @@ with open(INPUT_FILENAME, 'r') as input_file:
                 # for each row, fetch the values from the row's columns
                 # columns that are not used contain technical GPS stuff that you are probably not interested in
                 time = row[1]
-               
                 warning = row[2]
                 latitude = row[3]
                 lat_direction = row[4]
                 longitude = row[5]
                 lon_direction = row[6]
-                speed = row[7]
-                 
-                
+                speed = float(row[7])
                 date =  row[9]
                  
                 tdate=datetime.strptime(date , '%d%m%y')
@@ -49,7 +48,7 @@ with open(INPUT_FILENAME, 'r') as input_file:
                 
                 tTime=datetime.strptime(time, '%H%M%S.%f')
                 tTime=tTime.strftime('%H:%M:%S.%f')[:-7] 
-                print("time "+tTime)
+        
                 
                 # if the "warning" value is "V" (void), you may want to skip it since this is an indicator for an incomplete data row)
                 if warning == 'V':
@@ -77,7 +76,8 @@ with open(INPUT_FILENAME, 'r') as input_file:
                 # speed is given in knots, you'll probably rather want it in km/h and rounded to full integer values.
                 # speed has to be converted from string to float first in order to do calculations with it.
                 # conversion to int is to get rid of the tailing ".0".
-                speed = int(round(float(speed) * 1.852, 0))
+              
+                speed = int(speed * 1.852, 0)
 
                 # write the calculated/formatted values of the row that we just read into the csv file
                 c.execute("insert into nmea values (%s,%s,%s,%s,%s)",(date,time,speed, latitude, longitude))
@@ -89,13 +89,8 @@ with open(INPUT_FILENAME, 'r') as input_file:
         
 # We can also close the connection if we are done with it.
 # Just be sure any changes have been committed or they will be lost.
-c.execute ("""select * from nmea""")
 
-for row in c:
-        print (row)
+          
 
-c.close()
- 
-conn.close()
  
  
