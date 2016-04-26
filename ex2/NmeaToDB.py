@@ -3,12 +3,12 @@ import csv
 import math
 import pymysql
 from datetime import datetime
-INPUT_FILENAME = "Nmea_Files/nmeaToKaravan.txt"
+INPUT_FILENAME = "Nmea_Files/AttoPilot_Flight.txt"
 OUTPUT_FILENAME = 'Csv_Files/'+INPUT_FILENAME[11:-4]+'.csv'
 
 with open(INPUT_FILENAME, 'r') as input_file:
     reader = csv.reader(input_file)
-    conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='Mes307Fin', db='ex2')
+    conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='da9352238g', db='ex2')
     c = conn.cursor()
     c.execute('DROP TABLE IF EXISTS nmea')
     #flag will tell us if the GPGGA is good if yes continue to the GPRMC
@@ -38,7 +38,7 @@ with open(INPUT_FILENAME, 'r') as input_file:
                 lat_direction = row[4]
                 longitude = row[5]
                 lon_direction = row[6]
-                speed = float(row[7])
+                speed = row[7]
                 date =  row[9]
                  
                 tdate=datetime.strptime(date , '%d%m%y')
@@ -77,7 +77,7 @@ with open(INPUT_FILENAME, 'r') as input_file:
                 # speed has to be converted from string to float first in order to do calculations with it.
                 # conversion to int is to get rid of the tailing ".0".
               
-                speed = int(speed * 1.852, 0)
+                speed = int(round(float(speed) * 1.852, 0))
 
                 # write the calculated/formatted values of the row that we just read into the csv file
                 c.execute("insert into nmea values (%s,%s,%s,%s,%s)",(date,time,speed, latitude, longitude))
