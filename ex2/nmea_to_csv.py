@@ -6,6 +6,7 @@ import pymysql
 
 # adapt this to your file
 INPUT_FILENAME = 'Nmea_Files/Bus.txt'
+INPUT_FILENAME = 'Nmea_Files/Iphone_nmea.txt'
 OUTPUT_FILENAME = 'Csv_Files/'+INPUT_FILENAME[11:-4]+'.csv'
 
 # open the input file in read mode
@@ -36,6 +37,7 @@ with open(INPUT_FILENAME, 'r') as input_file:
                     # columns that are not used contain technical GPS stuff that you are probably not interested in
                     time = row[1]
                    
+                    print(time + "aa")
                     warning = row[2]
                     lat = row[3]
                     lat_direction = row[4]
@@ -45,6 +47,7 @@ with open(INPUT_FILENAME, 'r') as input_file:
                     spd_knt = float(row[7])
                     print(spd_knt)
                     date =  row[9]
+                    print(date)
                      
                     tdate=datetime.strptime(date , '%d%m%y')
                     tdate=tdate.strftime('%y-%m-%d')[:] 
