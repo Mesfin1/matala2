@@ -3,12 +3,12 @@ import csv
 import math
 import pymysql
 from datetime import datetime
-INPUT_FILENAME = "Nmea_Files/AttoPilot_Flight.txt"
-OUTPUT_FILENAME = 'Csv_Files/'+INPUT_FILENAME[11:-4]+'.csv'
+INPUT_FILENAME = "Nmea_Files/WorktoHome.txt"
+#OUTPUT_FILENAME = 'Csv_Files/'+INPUT_FILENAME[11:-4]+'.csv'
 
 with open(INPUT_FILENAME, 'r') as input_file:
     reader = csv.reader(input_file)
-    conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='da9352238g', db='ex2')
+    conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='sql password', db='ex2')
     c = conn.cursor()
     c.execute('DROP TABLE IF EXISTS nmea')
     #flag will tell us if the GPGGA is good if yes continue to the GPRMC

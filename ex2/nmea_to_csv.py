@@ -3,11 +3,11 @@ import csv
 from datetime import datetime
 import math
 import pymysql
-INPUT_FILENAME = "Nmea_Files/AttoPilot_Flight.txt"
+INPUT_FILENAME = "Nmea_Files/WorktoHome.txt"
 OUTPUT_FILENAME = 'Csv_Files/'+INPUT_FILENAME[11:-4]+'.csv'
 dbQuery='SELECT * FROM ex2.nmea;'
 
-db = pymysql.connect(host='localhost', port=3306, user='root', passwd='enter your sql password', db='ex2')
+db = pymysql.connect(host='localhost', port=3306, user='root', passwd='sql password', db='ex2')
 
 cur=db.cursor()
 cur.execute(dbQuery)
