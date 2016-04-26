@@ -53,7 +53,7 @@ def write_output(points):
     FILE.write(template_after)
   
 def main():
-    argv= 'Nmea_Files/Walk_slowly .txt' 
+    argv= 'Nmea_Files/Bus.txt' 
     write_output(conToKml(fileinput.input(argv)))
 
 if __name__ == "__main__":

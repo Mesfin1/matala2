@@ -2,14 +2,14 @@
 import csv
 from datetime import datetime
 import math
-
+import pymysql
 
 # adapt this to your file
-INPUT_FILENAME = 'Nmea_Files/nmeaFromWiki.txt'
+INPUT_FILENAME = 'Nmea_Files/Bus.txt'
 OUTPUT_FILENAME = 'Csv_Files/'+INPUT_FILENAME[11:-4]+'.csv'
-def  nmeaToCsv():
+
 # open the input file in read mode
-    with open(INPUT_FILENAME, 'r') as input_file:
+with open(INPUT_FILENAME, 'r') as input_file:
     
         # open the output file in write mode
         with open(OUTPUT_FILENAME, 'w') as output_file:
@@ -21,7 +21,7 @@ def  nmeaToCsv():
             writer = csv.writer(output_file, delimiter=',', lineterminator='\n')
     
             # write the header line to the csv file
-            writer.writerow(['date_and_time', 'lat', 'lon', 'speed'])
+            writer.writerow(['date','time', 'lat', 'lon', 'speed'])
     
             # iterate over all the rows in the nmea file
             for row in reader:
@@ -35,23 +35,35 @@ def  nmeaToCsv():
                     # for each row, fetch the values from the row's columns
                     # columns that are not used contain technical GPS stuff that you are probably not interested in
                     time = row[1]
+                   
                     warning = row[2]
                     lat = row[3]
                     lat_direction = row[4]
                     lon = row[5]
                     lon_direction = row[6]
                     speed = row[7]
+                    spd_knt = float(row[7])
+                    print(spd_knt)
                     date =  row[9]
-    
+                     
+                    tdate=datetime.strptime(date , '%d%m%y')
+                    tdate=tdate.strftime('%y-%m-%d')[:] 
+                    print(tdate)
+                    
+                    
+                    tTime=datetime.strptime(time, '%H%M%S.%f')
+                    tTime=tTime.strftime('%H:%M:%S.%f')[:-5] 
+                    print(tTime)
+                    
                     # if the "warning" value is "V" (void), you may want to skip it since this is an indicator for an incomplete data row)
                     if warning == 'V':
                         continue
     
                     # merge the time and date columns into one Python datetime object (usually more convenient than having both separately)
-                    date_and_time = datetime.strptime(date + ' ' + time, '%d%m%y %H%M%S.%f')
+                    #date_and_time = datetime.strptime(date + ' ' + time, '%d%m%y %H%M%S.%f')
     
                     # convert the Python datetime into your preferred string format, see http://www.tutorialspoint.com/python/time_strftime.htm for futher possibilities
-                    date_and_time = date_and_time.strftime('%y-%m-%d %H:%M:%S.%f')[:-3] # [:-3] cuts off the last three characters (trailing zeros from the fractional seconds)
+                    #date_and_time = date_and_time.strftime('%y-%m-%d %H:%M:%S.%f')[:-3] # [:-3] cuts off the last three characters (trailing zeros from the fractional seconds)
     
                     # lat and lon values in the $GPRMC nmea sentences come in an rather uncommon format. for convenience, convert them into the commonly used decimal degree format which most applications can read.
                     # the "high level" formula for conversion is: DDMM.MMMMM => DD + (YY.ZZZZ / 60), multiplicated with (-1) if direction is either South or West
@@ -69,16 +81,17 @@ def  nmeaToCsv():
                     # speed is given in knots, you'll probably rather want it in km/h and rounded to full integer values.
                     # speed has to be converted from string to float first in order to do calculations with it.
                     # conversion to int is to get rid of the tailing ".0".
-                    speed = int(round(float(speed) * 1.852, 0))
+                    speed = int((float(speed) * 1, 0))
     
                     # write the calculated/formatted values of the row that we just read into the csv file
-                    writer.writerow([date_and_time, lat, lon, speed])
+                    writer.writerow([tdate,tTime, lat, lon, speed])
                     
-        output_file.close()
-    input_file.close() 
+   
                   
 #def main():
  # nmeaToCsv()
  # print('done')
 #if __name__ == "__main__":
     #main()
+
+    
