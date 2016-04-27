@@ -40,7 +40,7 @@ with open(INPUT_FILENAME, 'r') as input_file:
                 speed = row[7]
                 date =  row[9]
             
-                #find time in format yyyy-mm-dd 
+                #find date in format yyyy-mm-dd 
                 yyyy=date[4:]
                 mm=date[2:4]
                 dd=date[0:2]
