@@ -6,7 +6,7 @@ import pymysql
 INPUT_FILENAME = "Nmea_Files/stockholm_walk.txt"
 OUTPUT_FILENAME = 'Csv_Files/'+INPUT_FILENAME[11:-4]+'.csv'
 
-db = pymysql.connect(host='localhost', port=3306, user='root', passwd='da9352238g', db='ex2')
+db = pymysql.connect(host='localhost', port=3306, user='root', passwd='sql pass', db='ex2')
 dbQuery='SELECT * FROM ex2.nmea;'
 
 cur=db.cursor()
