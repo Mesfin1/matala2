@@ -7,7 +7,7 @@ from datetime import datetime
 INPUT_FILENAME = "Nmea_Files/stockholm_walk.txt"
 with open(INPUT_FILENAME, 'r') as input_file:
     reader = csv.reader(input_file) 
-    conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='sql password', db='ex2')
+    conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='sql pass', db='ex2')
  
     c = conn.cursor()
     c.execute('DROP TABLE IF EXISTS nmea')
@@ -76,14 +76,14 @@ with open(INPUT_FILENAME, 'r') as input_file:
                 # the following reflects this formula in mathematical terms.
                 # lat and lon have to be converted from string to float in order to do calculations with them.
                 # you probably want the values rounded to 6 digits after the point for better readability.
-                #latitude = round(math.floor(float(latitude) / 100) + (float(latitude) % 100) / 60, 6)
-                latitude=round(float(latDegrees)+float(latMinute)/60,6)
+                latitude = round(math.floor(float(latitude) / 100) + (float(latitude) % 100) / 60, 6)
+                #latitude=round(float(latDegrees)+float(latMinute)/60,6)
                  
                 if lat_direction == 'S':
                     latitude = latitude * -1
 
-                #longitude = round(math.floor(float(longitude) / 100) + (float(longitude) % 100) / 60, 6)
-                longitude=round(float(lonDegrees)+float(lonMinute)/60,6)
+                longitude = round(math.floor(float(longitude) / 100) + (float(longitude) % 100) / 60, 6)
+                #longitude=round(float(lonDegrees)+float(lonMinute)/60,6)
               
                 if lon_direction == 'W':
                     longitude = longitude * -1
