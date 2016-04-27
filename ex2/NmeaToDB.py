@@ -3,20 +3,12 @@ import csv
 import math
 import pymysql
 from datetime import datetime
-<<<<<<< HEAD
+ 
 INPUT_FILENAME = "Nmea_Files/stockholm_walk.txt"
-=======
-INPUT_FILENAME = "Nmea_Files/WorktoHome.txt"
-#OUTPUT_FILENAME = 'Csv_Files/'+INPUT_FILENAME[11:-4]+'.csv'
->>>>>>> branch 'master' of https://github.com/Mesfin1/matala2.git
-
 with open(INPUT_FILENAME, 'r') as input_file:
-    reader = csv.reader(input_file)
-<<<<<<< HEAD
-    conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='Mes307Fin', db='ex2')
-=======
+    reader = csv.reader(input_file) 
     conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='sql password', db='ex2')
->>>>>>> branch 'master' of https://github.com/Mesfin1/matala2.git
+ 
     c = conn.cursor()
     c.execute('DROP TABLE IF EXISTS nmea')
     #flag will tell us if the GPGGA is good if yes continue to the GPRMC
