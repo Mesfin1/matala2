@@ -46,8 +46,5 @@ for row in result:
 f.write(kml_end)
 f.close()
 
- 
-
-
 
 
