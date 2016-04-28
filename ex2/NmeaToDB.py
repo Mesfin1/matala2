@@ -1,27 +1,28 @@
- 
 import csv
 import math
 import pymysql
 from datetime import datetime
  
-INPUT_FILENAME = "Nmea_Files/stockholm_walk.txt"
+INPUT_FILENAME = "Nmea_Files/running.txt"
 with open(INPUT_FILENAME, 'r') as input_file:
     reader = csv.reader(input_file) 
-    conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='sql pass', db='ex2')
- 
-    c = conn.cursor()
-    c.execute('DROP TABLE IF EXISTS nmea')
+    try:
+        conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='123qwe', db='ex2')
+        c = conn.cursor()
+   
+        c.execute('DROP TABLE IF EXISTS nmea')
     #flag will tell us if the GPGGA is good if yes continue to the GPRMC
-    flag = 0
+        flag = 0
     # Create table
    # c.execute('''create table ex2.db.ex
                #(date text,time text,speed float, latitude text, latitude_direction text, longitude text, longitude_direction text,fix text,horizontal_dilution text,altitude text,direct_of_altitude text,altitude_location text)''')
     # create a csv reader object from the input file nmea 
     
-    c.execute('''create table nmea
+        c.execute('''create table nmea
              (date DATE,time TIME,speed float , latitude text, longitude text)''')
     # create a csv reader object from the input file (nmea files are basically csv)
-   
+    except IOError:
+        print ("please check your MySql connection details")
     for row in reader:
 
             # skip all lines that do not start with $GPRMC
