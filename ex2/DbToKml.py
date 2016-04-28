@@ -27,11 +27,15 @@ kml_end = '''</coordinates></LineString>
 
 INPUT_FILENAME = "Nmea_Files/running.txt"
 OUTPUT_FILENAME = 'Kml_Files/'+INPUT_FILENAME[11:-4]+'.kml'
-db = pymysql.connect(host='localhost', port=3306, user='root', passwd='123qwe', db='ex2')
-dbQuery='SELECT * FROM ex2.nmea;'
-cur=db.cursor()
-cur.execute(dbQuery)
-result=cur.fetchall()
+try:
+    db = pymysql.connect(host='localhost', port=3306, user='root', passwd='Mes307Fin', db='ex2')
+    dbQuery='SELECT * FROM ex2.nmea;'
+    cur=db.cursor()
+    cur.execute(dbQuery)
+    result=cur.fetchall()
+except:
+    print ("\tMySQL details error")
+    sys.exit()
 f= open(OUTPUT_FILENAME,'w')
 f.write(kml_start)
 for row in result:
@@ -42,9 +46,11 @@ for row in result:
     lat=row[3]
     lon=row[4]
     f.write('%s,%s'%(lon,lat)+" ")
-
-f.write(kml_end)
+f.write(kml_end)    
 f.close()
+
+
+
 
 
 

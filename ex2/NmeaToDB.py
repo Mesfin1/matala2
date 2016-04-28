@@ -1,27 +1,27 @@
  
-import csv
+import csv,sys
 import math
 import pymysql
-from datetime import datetime
 
 #the nmea file that we will get the data from 
 INPUT_FILENAME = "Nmea_Files/running.txt"
 
 with open(INPUT_FILENAME, 'r') as input_file:
     reader = csv.reader(input_file) 
+    try:
+        #connection to mysql server
+        DBconn = pymysql.connect(host='localhost', port=3306, user='root', passwd='Mes307Fin', db='ex2')
+        c = DBconn.cursor()
+        
+        #delete the table if its exists 
+        c.execute('DROP TABLE IF EXISTS nmea')
     
-    #connection to mysql server
-    conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='123qwe', db='ex2')
- 
-    c = conn.cursor()
-    
-    #delete the table if its exists 
-    c.execute('DROP TABLE IF EXISTS nmea')
-
-    #create the table 
-    c.execute('''create table nmea
-             (date DATE,time TIME,speed float , latitude text, longitude text)''')
-    
+        #create the table 
+        c.execute('''create table nmea
+                 (date DATE,time TIME,speed float , latitude text, longitude text)''')
+    except :
+        print ("\tMySQL details error")
+        sys.exit()
     for row in reader:
 
             # skip all lines that do not start with $GPRMC
@@ -85,17 +85,26 @@ with open(INPUT_FILENAME, 'r') as input_file:
                     speed=0
                 else:
                     speed = int(float(speed) * 1.852)
-
+        
                 # write the calculated/formatted values of the row that we just read into the csv file
-                c.execute("insert into nmea values (%s,%s,%s,%s,%s)",(tdate,tTime,speed, latitude, longitude))
+                try:
+                    c.execute("insert into nmea values (%s,%s,%s,%s,%s)",(tdate,tTime,speed, latitude, longitude))
+                except :
+                    print ("\tinsert into nmea table error")
+                    sys.exit()
     
     #save the changes to database
-    conn.commit()
-
+    try:
+        DBconn.commit()
+    except :
+      print ("\tsave changes to MySQL error")
+      sys.exit()
+    DBconn.close()  
 # We can also close the connection if we are done with it.
 # Just be sure any changes have been committed or they will be lost.
-c.close()
-input_file.close()  
+
+input_file.close()
+
 
   
  
