@@ -28,6 +28,7 @@ kml_end = '''</coordinates></LineString>
 INPUT_FILENAME = "Nmea_Files/running.txt"
 OUTPUT_FILENAME = 'Kml_Files/'+INPUT_FILENAME[11:-4]+'.kml'
 try:
+
     db = pymysql.connect(host='localhost', port=3306, user='root', passwd='Mes307Fin', db='ex2')
     dbQuery='SELECT * FROM ex2.nmea;'
     cur=db.cursor()
@@ -39,8 +40,7 @@ except:
 f= open(OUTPUT_FILENAME,'w')
 f.write(kml_start)
 for row in result:
-    
-    date=row[0] 
+    dat=row[0] 
     time=row[1]
     speed=row[2]
     lat=row[3]
@@ -48,9 +48,5 @@ for row in result:
     f.write('%s,%s'%(lon,lat)+" ")
 f.write(kml_end)    
 f.close()
-
-
-
-
 
 
