@@ -20,7 +20,7 @@ except pymysql.err.OperationalError:
 else:
     try:
         c = csv.writer(open(OUTPUT_FILENAME, 'w'))
-        c.writerow(['  date','  time', '  speed', '  latitude', '  longitude'])
+        c.writerow(['  date','  time', '  speed', '  latitude',' lat_direction' ,'  longitude',' lon_direction'])
         for row in result:
             c.writerow(row)
         

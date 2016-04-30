@@ -4,7 +4,7 @@ import math
 import pymysql
 
 #the nmea file that we will get the data from 
-INPUT_FILENAME = "Nmea_Files/running.txt"
+INPUT_FILENAME = "Nmea_Files/AttoPilot_Flight.txt"
 
 with open(INPUT_FILENAME, 'r') as input_file:
     reader = csv.reader(input_file) 
@@ -18,18 +18,21 @@ with open(INPUT_FILENAME, 'r') as input_file:
     
         #create the table 
         c.execute('''create table nmea
-                 (date DATE,time TIME,speed float , latitude text, longitude text)''')
+                 (date DATE,time TIME,speed float , latitude text,North_South text, longitude text,East_West text)''')
+        print("Done create nmea table")
     except :
         print ("\tMySQL details error")
         sys.exit()
+    
+    
     else:
         for row in reader:
-    
+               
                 # skip all lines that do not start with $GPRMC
                 if not (row[0].startswith('$GNRMC')) and not (row[0].startswith('$GPRMC')) :
                     continue
-    
                 else:
+               
                     # for each row, fetch the values from the row's columns
                     # columns that are not used contain technical GPS stuff that you are probably not interested in
                     time = row[1]
@@ -89,7 +92,8 @@ with open(INPUT_FILENAME, 'r') as input_file:
             
                     # write the calculated/formatted values of the row that we just read into the csv file
                     try:
-                        c.execute("insert into nmea values (%s,%s,%s,%s,%s)",(tdate,tTime,speed, latitude, longitude))
+                        c.execute("insert into nmea values (%s,%s,%s,%s,%s,%s,%s)",(tdate,tTime,speed, latitude,lat_direction, longitude,lon_direction))
+                      
                     except :
                         print ("\tinsert into nmea table error")
                         sys.exit()
@@ -97,6 +101,7 @@ with open(INPUT_FILENAME, 'r') as input_file:
         #save the changes to database
         try:
             DBconn.commit()
+            print("Insert Success!")
         except :
           print ("\tsave changes to MySQL error")
           sys.exit()
