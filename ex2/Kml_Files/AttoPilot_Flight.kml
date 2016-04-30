@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<kml xmlns="http://earth.google.com/kml/2.1">
+<kml xmlns="http://www.opengis.net/kml/2.2"
+ xmlns:gx="http://www.google.com/kml/ext/2.2">
 <Document>
-  <name>Track Log</name>
-  <description>Route</description>
-  <Style id="roadStyle">
+<name>LineStyle.kml</name>
+  <open>1</open>
+  <Style id="linestyleExample">
     <LineStyle>
-      <color>ff4444ff</color>
-      <width>3</width>
+      <color>7f0000ff</color>
+      <width>5</width>
+      <gx:labelVisibility>2</gx:labelVisibility>
     </LineStyle>
   </Style>
   <Placemark>

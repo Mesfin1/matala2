@@ -5,7 +5,7 @@ import pymysql
 
 #the nmea file that we will get the data from 
 
-INPUT_FILENAME = 'Nmea_Files/AttoPilot_Flight.txt'
+INPUT_FILENAME = 'Nmea_Files/house.txt'
 
 with open(INPUT_FILENAME,'r') as input_file:
     reader = csv.reader(input_file) 
@@ -96,15 +96,15 @@ with open(INPUT_FILENAME,'r') as input_file:
                         c.execute("insert into nmea values (%s,%s,%s,%s,%s,%s,%s)",(tdate,tTime,speed, latitude,lat_direction, longitude,lon_direction))
                       
                     except :
-                        print ("\tinsert into nmea table error")
+                        print ("insert into nmea table error")
                         sys.exit()
         
         #save the changes to database
         try:
             DBconn.commit()
-            print("Insert Success!")
+            print("Save/Insert Success!")
         except :
-          print ("\tsave changes to MySQL error")
+          print ("Save To MySQL error")
           sys.exit()
         DBconn.close()  
 # We can also close the connection if we are done with it.

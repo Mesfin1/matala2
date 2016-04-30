@@ -1,16 +1,17 @@
 import sys
 import pymysql
 from _datetime import datetime
-
 kml_start = '''<?xml version="1.0" encoding="UTF-8"?>
-<kml xmlns="http://earth.google.com/kml/2.1">
+<kml xmlns="http://www.opengis.net/kml/2.2"
+ xmlns:gx="http://www.google.com/kml/ext/2.2">
 <Document>
-  <name>Track Log</name>
-  <description>Route</description>
-  <Style id="roadStyle">
+<name>LineStyle.kml</name>
+  <open>1</open>
+  <Style id="linestyleExample">
     <LineStyle>
-      <color>ff4444ff</color>
-      <width>3</width>
+      <color>7f0000ff</color>
+      <width>5</width>
+      <gx:labelVisibility>2</gx:labelVisibility>
     </LineStyle>
   </Style>
   <Placemark>
@@ -25,7 +26,8 @@ kml_end = '''</coordinates></LineString>
 </Document>
 </kml>'''
 
-INPUT_FILENAME = "Nmea_Files/running.txt"
+
+INPUT_FILENAME = "Nmea_Files/house.txt"
 OUTPUT_FILENAME = 'Kml_Files/'+INPUT_FILENAME[11:-4]+'.kml'
 try:
     db = pymysql.connect(host='localhost', port=3306, user='root', passwd='Mes307Fin', db='ex2')
@@ -38,13 +40,12 @@ except:
     sys.exit()
 f= open(OUTPUT_FILENAME,'w')
 f.write(kml_start)
+
 for row in result:
-    dat=row[0] 
-    time=row[1]
-    speed=row[2]
     lat=row[3]
-    lon=row[4]
+    lon=row[5]
     f.write('%s,%s'%(lon,lat)+" ")
+    
 f.write(kml_end)    
 f.close()
 

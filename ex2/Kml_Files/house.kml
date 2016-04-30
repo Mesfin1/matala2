@@ -15,7 +15,7 @@
     <name>Route</name>
     <styleUrl>#roadStyle</styleUrl>
     <MultiGeometry>
-      <LineString><coordinates>-121.989975,37.383806 -121.041278,39.123142 6.784192,50.979093 5.00001,51.003518 -121.041287,39.123065 -121.041285,39.123065 -121.04114,39.123062 -121.041153,39.123067 </coordinates></LineString>
+      <LineString><coordinates>-84.821733,35.209817 -84.821733,35.209817 -84.821733,35.209817 -84.821783,35.209867 </coordinates></LineString>
     </MultiGeometry>
   </Placemark>
 </Document>
