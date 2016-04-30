@@ -1,12 +1,13 @@
  
-import csv,sys
+import csv,sys,os.path
 import math
 import pymysql
 
 #the nmea file that we will get the data from 
-INPUT_FILENAME = "Nmea_Files/AttoPilot_Flight.txt"
 
-with open(INPUT_FILENAME, 'r') as input_file:
+INPUT_FILENAME = 'Nmea_Files/AttoPilot_Flight.txt'
+
+with open(INPUT_FILENAME,'r') as input_file:
     reader = csv.reader(input_file) 
     try:
         #connection to mysql server
@@ -18,7 +19,7 @@ with open(INPUT_FILENAME, 'r') as input_file:
     
         #create the table 
         c.execute('''create table nmea
-                 (date DATE,time TIME,speed float , latitude text,North_South text, longitude text,East_West text)''')
+                 (Date DATE,Time TIME,Speed float , Latitude text,North_South text, Longitude text,East_West text)''')
         print("Done create nmea table")
     except :
         print ("\tMySQL details error")
