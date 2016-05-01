@@ -26,6 +26,7 @@ Where:
      
      
 Features:
+
 runs under eclipse (plugin pydev) and mysql workbench
 parses individual NMEA-0183 sentences
 
