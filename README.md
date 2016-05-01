@@ -25,7 +25,7 @@ Where:
      *6A          The checksum data, always begins with *
      
      
-Features
+Features:
 runs under eclipse (plugin pydev) and mysql workbench
 parses individual NMEA-0183 sentences
 
