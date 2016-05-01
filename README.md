@@ -34,7 +34,7 @@ takes geographic location input and encodes it into valid NMEA-0183 sentences
 
 Primary Functions
 
-with open(nmeaFile.txt, mode='r' or 'w')  
+with open(nmeaFile.txt, mode='r' or 'w')  /////need to add some info////
 
 
 
