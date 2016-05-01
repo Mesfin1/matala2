@@ -35,3 +35,12 @@ takes geographic location input and encodes it into valid NMEA-0183 sentences
 Primary Functions
 
 with open(nmeaFile.txt, mode='r' or 'w')  
+
+
+
+
+
+Source Code Content:
+NmeaToDB.py parse the nmea data and insert to data base 
+DbToCsv.py  import the data from database to csv file that can be open in excel
+DbToKml.py  import the data from database to kml file that can be seen in google earth
