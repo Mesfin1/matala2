@@ -27,7 +27,7 @@ kml_end = '''</coordinates></LineString>
 </kml>'''
 
 
-INPUT_FILENAME = "Nmea_Files/house.txt"
+INPUT_FILENAME = "Nmea_Files/Ariel2.txt"
 OUTPUT_FILENAME = 'Kml_Files/'+INPUT_FILENAME[11:-4]+'.kml'
 try:
     db = pymysql.connect(host='localhost', port=3306, user='root', passwd='Mes307Fin', db='ex2')

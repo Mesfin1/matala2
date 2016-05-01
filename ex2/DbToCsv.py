@@ -4,7 +4,7 @@ import math
 import pymysql
 from _csv import Error
 
-INPUT_FILENAME = "Nmea_Files/running.txt"
+INPUT_FILENAME = "Nmea_Files/Ariel2.txt"
 OUTPUT_FILENAME = 'Csv_Files/'+INPUT_FILENAME[11:-4]+'.csv'
  
 try:

@@ -5,7 +5,7 @@ import pymysql
 
 #the nmea file that we will get the data from 
 
-INPUT_FILENAME = 'Nmea_Files/house.txt'
+INPUT_FILENAME = 'Nmea_Files/Ariel2.txt'
 
 with open(INPUT_FILENAME,'r') as input_file:
     reader = csv.reader(input_file) 
