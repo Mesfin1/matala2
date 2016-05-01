@@ -33,4 +33,5 @@ lets you add sentence parsers for those not built-in
 takes geographic location input and encodes it into valid NMEA-0183 sentences
 
 Primary Functions
+
 open(file, mode='r' or 'w')  
