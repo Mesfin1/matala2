@@ -8,9 +8,11 @@ The Recommended Minimum, which will look similar to:
 
 All NMEA messages start with the $ character, and each data field is separated by a comma.
 for example:
+
 $GPRMC,123519,A,4807.038,N,01131.000,E,022.4,084.4,230394,003.1,W*6A
 
 Where:
+
      RMC          Recommended Minimum sentence C
      123519       Time 12:35:19 UTC
      A            Status A=active or V=Void.
@@ -22,7 +24,9 @@ Where:
      003.1,W      Magnetic Variation
      *6A          The checksum data, always begins with *
      
-Features
+     
+Features:
+
 runs under eclipse (plugin pydev) and mysql workbench
 parses individual NMEA-0183 sentences
 
@@ -41,6 +45,7 @@ with open(nmeaFile.txt, mode='r' or 'w')  /////need to add some info////
 
 
 Source Code Content:
+
 NmeaToDB.py parse the nmea data and insert to data base 
 DbToCsv.py  import the data from database to csv file that can be open in excel
 DbToKml.py  import the data from database to kml file that can be seen in google earth
