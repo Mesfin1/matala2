@@ -51,6 +51,6 @@ to save to table use commit().
 
 Source Code Content:
 
-NmeaToDB.py parse the nmea data and insert to data base 
+NmeaToDB.py parse the nmea data and insert to data base
 DbToCsv.py  import the data from database to csv file that can be open in excel
 DbToKml.py  import the data from database to kml file that can be seen in google earth
